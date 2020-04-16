@@ -1,5 +1,6 @@
 package com.changfan.windowApi
 
+import org.apache.flink.api.common.functions.ReduceFunction
 import org.apache.flink.streaming.api.scala.{DataStream, KeyedStream, StreamExecutionEnvironment, WindowedStream}
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow
@@ -20,7 +21,7 @@ object TestWindow {
 
     val socketDS: DataStream[String] = env.socketTextStream("localhost", 9999)
 
-    val mapDS: DataStream[(String, Int)] = socketDS.map((_,1))
+    val mapDS: DataStream[(String, Int)] = socketDS.map((_, 1))
 
     // 分流
     val socketKS: KeyedStream[(String, Int), String] = mapDS.keyBy(_._1)
@@ -35,11 +36,25 @@ object TestWindow {
         (t1._1, t1._2 + t2._2)
       }
     )
+
+
+    val reduceDS1: DataStream[(String, Int)] = socketWS.reduce(new MyReduceFunction)
     reduceDS.print("window>>>>")
 
     //触发执行计算
     env.execute()
 
+  }
+
+  //自定义reduce 方法 ，reduce方法第一条数据不做处理，从第二条开始
+  //每来一条数据，就会计算一条一次
+  //当窗口结束时，直接返回计算结果
+  class MyReduceFunction extends ReduceFunction[(String, Int)] {
+    override def reduce(value1: (String, Int), value2: (String, Int)): (String, Int) = {
+
+      println("reduce=" + value1._2 + value2._2)
+      (value1._1, value1._2 + value2._2)
+    }
   }
 
 }
