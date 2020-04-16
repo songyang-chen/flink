@@ -30,8 +30,6 @@ object TestWindow {
     val socketWS: WindowedStream[(String, Int), String, TimeWindow] =
     socketKS.timeWindow(Time.seconds(3))
 
-
-
     val reduceDS: DataStream[(String, Int)] = socketWS.reduce(
       (t1, t2) => {
         (t1._1, t1._2 + t2._2)
@@ -39,6 +37,7 @@ object TestWindow {
     )
     reduceDS.print("window>>>>")
 
+    //触发执行计算
     env.execute()
 
   }
