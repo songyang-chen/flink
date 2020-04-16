@@ -8,6 +8,7 @@ package com.changfan.test
 object Hello {
   def main(args: Array[String]): Unit = {
     println("hello ccccc")
+    println("dev 不行 why")
   }
 
 }
