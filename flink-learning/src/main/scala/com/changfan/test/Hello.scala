@@ -7,7 +7,7 @@ package com.changfan.test
   */
 object Hello {
   def main(args: Array[String]): Unit = {
-    println("hello")
+    println("hello ccccc")
   }
 
 }
