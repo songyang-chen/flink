@@ -18,7 +18,7 @@ object SlidingEventTimeWindows {
     env.setParallelism(1)
 
     val socketDS: DataStream[String] = env.socketTextStream("localhost", 9999)
-
+    import org.apache.flink.api.scala._
     val mapDS: DataStream[(String, Int)] = socketDS.map((_,1))
 
     // 分流
