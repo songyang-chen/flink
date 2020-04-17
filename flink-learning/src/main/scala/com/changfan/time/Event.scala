@@ -21,7 +21,6 @@ object EventTimeTest {
         // 可以通过环境对象设置时间语义
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
 
-
         env.execute()
   }
 
