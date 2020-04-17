@@ -1,6 +1,6 @@
 package com.changfan.windowApi
 
-import org.apache.flink.api.common.functions.ReduceFunction
+import org.apache.flink.api.common.functions.{AggregateFunction, ReduceFunction}
 import org.apache.flink.streaming.api.scala.{DataStream, KeyedStream, StreamExecutionEnvironment, WindowedStream}
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow
@@ -31,14 +31,19 @@ object TestWindow {
     val socketWS: WindowedStream[(String, Int), String, TimeWindow] =
     socketKS.timeWindow(Time.seconds(3))
 
+
     val reduceDS: DataStream[(String, Int)] = socketWS.reduce(
       (t1, t2) => {
         (t1._1, t1._2 + t2._2)
       }
     )
 
+    //自定义累加器，聚合
+   val value: DataStream[Int] = socketWS.aggregate(new MyAggregateFunction)
 
     val reduceDS1: DataStream[(String, Int)] = socketWS.reduce(new MyReduceFunction)
+
+
     reduceDS.print("window>>>>")
 
     //触发执行计算
@@ -54,6 +59,33 @@ object TestWindow {
 
       println("reduce=" + value1._2 + value2._2)
       (value1._1, value1._2 + value2._2)
+    }
+
+
+  }
+
+
+  //自定义累加器函数，继承AggregationFunction
+  //定义泛型 输入In,累加器中间处理值 Acc ,输出out
+  class MyAggregateFunction extends AggregateFunction[(String, Int), Int, Int] {
+
+    //将输入值对累加器进行更新
+    override def add(value: (String, Int), accumulator: Int): Int = {
+
+      accumulator + value._2
+    }
+
+    //创建累加器
+    override def createAccumulator(): Int = 0
+
+    //获取累加器的值
+    override def getResult(accumulator: Int): Int = {
+      accumulator
+    }
+
+    //合并累加器的值
+    override def merge(a: Int, b: Int): Int = {
+      a + b
     }
   }
 
