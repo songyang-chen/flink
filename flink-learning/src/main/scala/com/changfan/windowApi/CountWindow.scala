@@ -18,7 +18,7 @@ object CountWindow {
     env.setParallelism(1)
 
     val socketDS: DataStream[String] = env.socketTextStream("localhost", 9999)
-
+    import org.apache.flink.api.scala._
     val mapDS: DataStream[(String, Int)] = socketDS.map((_, 1))
 
     // 分流，这里的count设置的为3，所以当每一个值达到3个时触发
