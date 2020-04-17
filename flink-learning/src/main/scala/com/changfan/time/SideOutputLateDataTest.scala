@@ -36,7 +36,10 @@ object SideOutputLateDataTest {
         WaterSensor(datas(0), datas(1).toLong, datas(2).toInt)
       }
     )
+
+    //获取时间
     val markDS: DataStream[WaterSensor] = sensorDS.assignTimestampsAndWatermarks(
+      //设定watermark为3秒
       new BoundedOutOfOrdernessTimestampExtractor[WaterSensor](Time.seconds(3)) {
         // 抽取事件时间,以毫秒为单位
         override def extractTimestamp(element: WaterSensor): Long = {
