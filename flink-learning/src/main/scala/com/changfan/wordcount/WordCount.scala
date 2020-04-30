@@ -1,5 +1,6 @@
 package com.changfan.wordcount
 
+import org.apache.flink.api.java.utils.ParameterTool
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
 
 /**
@@ -10,8 +11,16 @@ import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironm
 object WordCount {
   def main(args: Array[String]): Unit = {
 
+
+    // 从外部命令中获取参数
+//    val params: ParameterTool =  ParameterTool.fromArgs(args)
+//    val host: String = params.get("host")
+//    val port: Int = params.getInt("port")
+
+
     //创建执行环境
-    val env = StreamExecutionEnvironment.getExecutionEnvironment
+    val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+    env.setParallelism(1)
     // 接收socket文本流
     val textDstream: DataStream[String] = env.socketTextStream("hadoop132", 7777)
 
