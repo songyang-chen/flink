@@ -5,10 +5,10 @@ import scala.util.Random
   * create: 2020-04-03-10:05
   * tel: 17717876906
   */
-object Testd {
+object TestFlatMap {
   def main(args: Array[String]): Unit = {
-    //    val random = new Random()
-    //    println(1.to(9).map(x => (x, x + 1, x + random.nextGaussian())))
+    val random = new Random()
+    println(1.to(9).map(x => (x, x + 1, x + random.nextGaussian())))
 
     val list = List(1, 2, 3, 49)
     println(list.flatMap(x => List(x, x + 1)))
