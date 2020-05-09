@@ -7,10 +7,7 @@ package com.changfan.test
   */
 object Hello {
   def main(args: Array[String]): Unit = {
-//    println("hello ccccc")
-//    println("dev 不行 why")
-//    println("一个接一个错误")
-    print("shanchu")
+print("hello")
   }
 
 }
