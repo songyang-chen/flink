@@ -10,7 +10,7 @@ import org.apache.flink.util.Collector
   * create: 2020-04-17-16:17
   * tel: 17717876906
   */
-object Keyed {
+object ProcessKeyed {
   def main(args: Array[String]): Unit = {
 
     val env: StreamExecutionEnvironment =

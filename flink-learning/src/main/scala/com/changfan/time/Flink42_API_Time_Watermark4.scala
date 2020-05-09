@@ -1,10 +1,10 @@
-package com.atguigu.bigdata.flink
+package com.changfan.time
 
 import java.text.SimpleDateFormat
 
+import com.changfan.bean.WaterSensor
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks
-import org.apache.flink.streaming.api.functions.timestamps.BoundedOutOfOrdernessTimestampExtractor
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment, _}
 import org.apache.flink.streaming.api.watermark.Watermark
 import org.apache.flink.streaming.api.windowing.time.Time
@@ -23,6 +23,8 @@ object Flink42_API_Time_Watermark4 {
 
 
         val dataDS: DataStream[String] = env.socketTextStream("localhost", 9999)
+        import org.apache.flink.api.scala._
+
         val sensorDS: DataStream[WaterSensor] = dataDS.map(
             data => {
                 val datas = data.split(",")

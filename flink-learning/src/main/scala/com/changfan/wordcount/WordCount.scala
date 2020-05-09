@@ -22,7 +22,7 @@ object WordCount {
     val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
     env.setParallelism(1)
     // 接收socket文本流
-    val textDstream: DataStream[String] = env.socketTextStream("hadoop132", 7777)
+    val textDstream: DataStream[String] = env.socketTextStream("localhost", 7777)
 
     // flatMap和Map需要引用的隐式转换
     import org.apache.flink.api.scala._

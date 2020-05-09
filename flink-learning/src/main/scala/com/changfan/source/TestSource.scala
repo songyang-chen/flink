@@ -2,7 +2,7 @@ package com.changfan.source
 
 import com.changfan.bean.SensorReading
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
-
+import org.apache.flink.api.scala._
 /**
   * author: jiaozhu
   * create: 2020-04-02-17:06
@@ -13,8 +13,7 @@ object TestSource {
     val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
 
 
-    //隐式转换
-    import org.apache.flink.api.scala._
+
     //  方式一 从集合中读取数据
     val stream: DataStream[SensorReading] = env.fromCollection(List(
       SensorReading("sensor_1", 1547718199, 35.80018327300259),

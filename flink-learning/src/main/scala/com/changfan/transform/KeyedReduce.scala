@@ -26,7 +26,7 @@ object KeyedReduce {
     })
 
 
-    val keyedStream: KeyedStream[SensorReading, Tuple] = DSSensorReading.keyBy("id")
+    val keyedStream: KeyedStream[SensorReading, String] = DSSensorReading.keyBy(_.id)
 
     keyedStream.print(" k").setParallelism(2)
 

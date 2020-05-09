@@ -1,10 +1,11 @@
-package com.atguigu.bigdata.flink
+package com.changfan.time
 
 import java.text.SimpleDateFormat
 
+import com.changfan.bean.WaterSensor
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment, _}
-import org.apache.flink.streaming.api.windowing.assigners.{EventTimeSessionWindows, SlidingEventTimeWindows, TumblingEventTimeWindows}
+import org.apache.flink.streaming.api.windowing.assigners.EventTimeSessionWindows
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow
 import org.apache.flink.util.Collector
@@ -37,9 +38,11 @@ object Flink46_API_Time_Window {
                 //.timeWindow(Time.seconds(5))
                 // 设定EventTime的滚动窗口
                 //.window(TumblingEventTimeWindows.of(Time.seconds(5)))
+
                 // 设定EventTime的滑动窗口
                 //.timeWindow(Time.seconds(5), Time.seconds(5))
                 //.window(SlidingEventTimeWindows.of(Time.seconds(5), Time.seconds(5)))
+
                 // 设定EventTime的会话窗口
                 // 时间间隔应该大于session间隔数据，会触发窗口的计算
                 // session窗口的划分以当前数据为开始，加5s为结束

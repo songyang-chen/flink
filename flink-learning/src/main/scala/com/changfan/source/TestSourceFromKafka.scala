@@ -18,7 +18,6 @@ object TestSourceFromKafka {
 
     val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
 
-
     val properties: Properties = KafkaUtils.getProperties
     import org.apache.flink.api.scala._
 
