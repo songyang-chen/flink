@@ -24,6 +24,7 @@ object ElasticSearchTest {
 
     // source
     val inputStream = env.readTextFile("D:\\Projects\\BigData\\FlinkTutorial\\src\\main\\resources\\sensor.txt")
+    import org.apache.flink.api.scala._
 
     // transform
     val dataStream = inputStream

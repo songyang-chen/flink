@@ -21,7 +21,7 @@ object JdbcSinkTest {
 
     // source
     val inputStream = env.readTextFile("D:\\workplace\\flink-learning\\src\\main\\resources\\sensor.txt")
-
+    import org.apache.flink.api.scala._
     // transform
     val dataStream: DataStream[SensorReading] = inputStream
       .map(
